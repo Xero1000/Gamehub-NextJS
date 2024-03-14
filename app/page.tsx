@@ -1,11 +1,12 @@
 'use client'
 
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./NavBar";
 import GameGrid from "./GameGrid";
 import GenreList from "./GenreList";
 import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
+import PlatformSelector from "./PlatformSelector";
 
 export default function Home() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
@@ -30,7 +31,10 @@ export default function Home() {
             <GenreList onSelectGenre={(genre) => setSelectedGenre(genre)} selectedGenre={selectedGenre}/>
           </GridItem>
         </Show>
-        <GridItem area="main">
+        <GridItem area="main" padding={4}>
+          <Box paddingBottom={3}>
+            <PlatformSelector />
+          </Box>
           <GameGrid selectedGenre={selectedGenre}/>
         </GridItem>
       </Grid>
