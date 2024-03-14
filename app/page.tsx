@@ -11,12 +11,16 @@ export default function Home() {
           base: `"nav" "main"`,
           lg: `"nav nav" "aside main"`,
         }}
+        templateColumns={{
+          base: '1fr', // column takes up all available space
+          lg: '200px 1fr' // Aside column gets fixed width of 200px, GameGrid gets the rest of available space
+        }}
       >
         <GridItem area="nav">
           <NavBar />
         </GridItem>
         <Show above="lg">
-          <GridItem area="aside">
+          <GridItem area="aside" paddingX={5}>
             <GenreList />
           </GridItem>
         </Show>
