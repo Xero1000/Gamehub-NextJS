@@ -1,5 +1,4 @@
-export default 
-[
+export default [
 	{
 		"id": 4,
 		"name": "Action",
