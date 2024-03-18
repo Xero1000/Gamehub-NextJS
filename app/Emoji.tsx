@@ -11,10 +11,15 @@ const Emoji = ({ rating }: Props) => {
   const emojiMap: { [key: number]: ImageProps } = {
     3: { src: "/meh.webp", alt: "meh", boxSize: "25px" },
     4: { src: "/thumbs-up.webp", alt: "recommended", boxSize: "25px" },
-    5: { src: "/bulls-eye.webp", alt: "Exceptional", boxSize: "35px" }
-  }
+    5: { src: "/bulls-eye.webp", alt: "Exceptional", boxSize: "35px" },
+  };
 
-  return <Image {...emojiMap[rating]} marginTop={1}/>
+  return (
+    <>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+      <Image {...emojiMap[rating]} marginTop={1} />
+    </>
+  );
 };
 
 export default Emoji;
