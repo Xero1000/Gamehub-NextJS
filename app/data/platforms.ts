@@ -1,4 +1,4 @@
-export default [
+const platforms = [
 	{
 		"id": 1,
 		"name": "PC",
@@ -608,3 +608,5 @@ export default [
 		]
 	}
 ]
+
+export default platforms
