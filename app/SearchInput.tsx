@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 
 interface Props {
-    onSearch: (searchText: string) => void;
+  onSearch: (searchText: string) => void;
 }
 
 const SearchInput = ({ onSearch }: Props) => {
@@ -16,7 +16,9 @@ const SearchInput = ({ onSearch }: Props) => {
       }}
     >
       <InputGroup>
-        <InputLeftElement children={<BsSearch />} />
+        <InputLeftElement>
+          <BsSearch />
+        </InputLeftElement>
         <Input
           ref={ref}
           borderRadius={20}
