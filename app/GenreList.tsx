@@ -40,7 +40,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
               </GenreListContainer>
             </ListItem>
           ))}
-        {data.map((genre) => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id}>
             <GenreListContainer>
               <Image
