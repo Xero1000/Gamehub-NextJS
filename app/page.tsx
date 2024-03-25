@@ -5,6 +5,7 @@ import GenreList from "./GenreList";
 import NavBar from "./NavBar";
 import PlatformSelector from "./PlatformSelector";
 import SortSelector from "./SortSelector";
+import ClearFilters from "./ClearFilters";
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
           <HStack marginBottom={5} spacing={5}>
             <PlatformSelector />
             <SortSelector />
+            <ClearFilters />
           </HStack>
           <GameGrid />
         </GridItem>
