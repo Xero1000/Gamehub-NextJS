@@ -1,7 +1,4 @@
-"use client";
-
 import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
-import { useState } from "react";
 import GameGrid from "./GameGrid";
 import GameHeading from "./GameHeading";
 import GenreList from "./GenreList";

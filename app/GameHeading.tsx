@@ -1,3 +1,5 @@
+"use client";
+
 import { Heading } from "@chakra-ui/react";
 import useGenre from "./hooks/useGenre";
 import usePlatform from "./hooks/usePlatform";
