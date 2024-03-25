@@ -1,6 +1,15 @@
 "use client";
 
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import useGameQueryStore from "./store";
 
@@ -17,13 +26,22 @@ const SortSelector = () => {
     { value: "-rating", label: "Average rating" },
   ];
 
+  const layout = useBreakpointValue({ base: "base", sm: "sm", md: "md" });
+
   const currentSortOrder = sortOrders.find(
     (order) => order.value === sortOrder
   );
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Order by: {currentSortOrder?.label || "Relevance"}
+        <Text as="span" display={{ base: "inline", sm: "none" }}>
+          Order by:
+          <br />
+        </Text>
+        <Text as="span" display={{ base: "none", sm: "inline" }}>
+          {"Order by: "}
+        </Text>
+        {currentSortOrder?.label || "Relevance"}
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (
