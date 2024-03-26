@@ -10,9 +10,9 @@ import {
   SkeletonText,
 } from "@chakra-ui/react";
 import GenreListContainer from "./GenreListContainer";
-import useGenres from "./hooks/useGenres";
-import getCroppedImageUrl from "./services/image-url";
-import useGameQueryStore from "./store";
+import useGenres from "../hooks/useGenres";
+import getCroppedImageUrl from "../services/image-url";
+import useGameQueryStore from "../store";
 
 const GenreList = () => {
   const { data, error, isLoading } = useGenres();

@@ -4,19 +4,18 @@ import {
   HStack,
   Show,
   SimpleGrid,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
-import GameGrid from "./GameGrid";
-import GameHeading from "./GameHeading";
-import GenreList from "./GenreList";
-import NavBar from "./NavBar";
-import PlatformSelector from "./PlatformSelector";
-import SortSelector from "./SortSelector";
-import ClearFilters from "./ClearFilters";
-import GenreSelector from "./GenreSelector";
+import GameGrid from "./components/GameGrid";
+import GameHeading from "./components/GameHeading";
+import GenreList from "./components/GenreList";
+import NavBar from "./components/NavBar";
+import PlatformSelector from "./components/PlatformSelector";
+import SortSelector from "./components/SortSelector";
+import ClearFilters from "./components/ClearFilters";
+import GenreSelector from "./components/GenreSelector";
 
 export default function Home() {
-
   return (
     <main>
       <Grid
