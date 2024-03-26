@@ -1,36 +1,25 @@
-import {
-  Grid,
-  GridItem,
-  HStack,
-  Show,
-  SimpleGrid,
-  VStack,
-} from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Show, SimpleGrid } from "@chakra-ui/react";
+import ClearFilters from "./components/ClearFilters";
 import GameGrid from "./components/GameGrid";
 import GameHeading from "./components/GameHeading";
 import GenreList from "./components/GenreList";
-import NavBar from "./components/NavBar";
+import GenreSelector from "./components/GenreSelector";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
-import ClearFilters from "./components/ClearFilters";
-import GenreSelector from "./components/GenreSelector";
 
 export default function Home() {
   return (
     <main>
       <Grid
         templateAreas={{
-          base: `"nav" "main"`,
-          lg: `"nav nav" "aside main"`,
+          base: `"main"`,
+          lg: `"aside main"`,
         }}
         templateColumns={{
           base: "1fr", // column takes up all available space
           lg: "200px 1fr", // Aside column gets fixed width of 200px, GameGrid gets the rest of available space
         }}
       >
-        <GridItem area="nav">
-          <NavBar />
-        </GridItem>
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
             <GenreList />
