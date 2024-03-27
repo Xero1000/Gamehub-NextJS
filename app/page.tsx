@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Show, SimpleGrid } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Show, SimpleGrid } from "@chakra-ui/react";
 import ClearFilters from "./components/ClearFilters";
 import GameGrid from "./components/GameGrid";
 import GameHeading from "./components/GameHeading";
@@ -25,23 +25,25 @@ export default function Home() {
             <GenreList />
           </GridItem>
         </Show>
-        <GridItem area="main" padding={4}>
-          <GameHeading />
-          <Show above="lg">
-            <HStack marginBottom={5} spacing={5}>
-              <PlatformSelector />
-              <SortSelector />
-              <ClearFilters />
-            </HStack>
-          </Show>
-          <Show below="lg">
-            <SimpleGrid columns={2} spacing={5} marginBottom={5}>
-              <GenreSelector />
-              <PlatformSelector />
-              <SortSelector />
-              <ClearFilters />
-            </SimpleGrid>
-          </Show>
+        <GridItem area="main">
+          <Box paddingLeft={2}>
+            <GameHeading />
+            <Show above="lg">
+              <HStack marginBottom={5} spacing={5}>
+                <PlatformSelector />
+                <SortSelector />
+                <ClearFilters />
+              </HStack>
+            </Show>
+            <Show below="lg">
+              <SimpleGrid columns={2} spacing={5} marginBottom={5}>
+                <GenreSelector />
+                <PlatformSelector />
+                <SortSelector />
+                <ClearFilters />
+              </SimpleGrid>
+            </Show>
+          </Box>
           <GameGrid />
         </GridItem>
       </Grid>

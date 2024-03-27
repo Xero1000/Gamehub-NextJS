@@ -7,7 +7,7 @@ interface Props {
 
 const ErrorContainer = ({ children }: Props) => {
   return (
-    <Box padding={5}>
+    <Box>
       <Heading>Oops</Heading>
       {children}
     </Box>
