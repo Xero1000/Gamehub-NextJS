@@ -12,6 +12,11 @@ const GameDetailPage = ({ params: { slug } }: Props) => {
 
   if (isLoading) return <Spinner />;
 
+  // Check if there was an error in fetching the game details
+  if (error) {
+    return <ErrorPage />;
+  }
+
   return (
     <>
       <Heading>{game?.name}</Heading>
