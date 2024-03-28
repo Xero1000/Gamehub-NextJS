@@ -1,8 +1,9 @@
 "use client";
-import ExpandableText from "@/app/components/ExpandableText";
 import ErrorPage from "@/app/error";
+import ExpandableText from "@/app/games/ExpandableText";
 import useGame from "@/app/hooks/useGame";
-import { Heading, Spinner, Text } from "@chakra-ui/react";
+import { Heading, Spinner } from "@chakra-ui/react";
+import GameAttributes from "../GameAttributes";
 
 interface Props {
   params: { slug: string };
@@ -22,6 +23,7 @@ const GameDetailPage = ({ params: { slug } }: Props) => {
     <>
       <Heading>{game.name}</Heading>
       <ExpandableText>{game.description_raw}</ExpandableText>
+      <GameAttributes game={game} />
     </>
   );
 };
