@@ -5,6 +5,7 @@ import useGame from "@/app/hooks/useGame";
 import { Heading, Spinner } from "@chakra-ui/react";
 import GameAttributes from "../GameAttributes";
 import GameTrailer from "../GameTrailer";
+import Screenshots from "../GameScreenshots";
 
 interface Props {
   params: { slug: string };
@@ -26,6 +27,7 @@ const GameDetailPage = ({ params: { slug } }: Props) => {
       <ExpandableText>{game.description_raw}</ExpandableText>
       <GameAttributes game={game} />
       <GameTrailer gameId={game.id} />
+      <Screenshots gameId={game.id} />
     </>
   );
 };
