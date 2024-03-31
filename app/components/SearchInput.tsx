@@ -1,10 +1,10 @@
 "use client";
 
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import useGameQueryStore from "../store";
-import { useRouter } from "next/navigation";
 
 const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);

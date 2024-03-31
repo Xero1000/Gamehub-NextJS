@@ -1,12 +1,9 @@
 "use client";
-import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
-import React from "react";
+import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import usePlatform from "../hooks/usePlatform";
-import usePlatforms from "../hooks/usePlatforms";
-import useGameQueryStore from "../store";
-import useGenres from "../hooks/useGenres";
 import useGenre from "../hooks/useGenre";
+import useGenres from "../hooks/useGenres";
+import useGameQueryStore from "../store";
 
 const GenreSelector = () => {
   const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);

@@ -1,14 +1,13 @@
 "use client";
 
 import {
-  Box,
   Button,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Text,
-  useBreakpointValue,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import useGameQueryStore from "../store";
