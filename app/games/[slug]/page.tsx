@@ -2,7 +2,7 @@
 import ErrorPage from "@/app/error";
 import ExpandableText from "@/app/games/ExpandableText";
 import useGame from "@/app/hooks/useGame";
-import { Heading, Spinner } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
 import GameAttributes from "../GameAttributes";
 import GameTrailer from "../GameTrailer";
 import Screenshots from "../GameScreenshots";
@@ -23,11 +23,17 @@ const GameDetailPage = ({ params: { slug } }: Props) => {
 
   return (
     <>
-      <Heading>{game.name}</Heading>
-      <ExpandableText>{game.description_raw}</ExpandableText>
-      <GameAttributes game={game} />
-      <GameTrailer gameId={game.id} />
-      <Screenshots gameId={game.id} />
+      <SimpleGrid columns={{ base: 1, md: 2 }}>
+        <Box>
+          <Heading>{game.name}</Heading>
+          <ExpandableText>{game.description_raw}</ExpandableText>
+          <GameAttributes game={game} />
+        </Box>
+        <Box>
+          <GameTrailer gameId={game.id} />
+          <Screenshots gameId={game.id} />
+        </Box>
+      </SimpleGrid>
     </>
   );
 };
