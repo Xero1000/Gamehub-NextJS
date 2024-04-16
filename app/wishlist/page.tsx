@@ -1,6 +1,8 @@
 'use client'
 
 import { Box, Text } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
