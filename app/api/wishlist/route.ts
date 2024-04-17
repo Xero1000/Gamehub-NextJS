@@ -23,11 +23,10 @@ export async function GET(request: NextRequest) {
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
-  const userId = user.id;
 
   const wishlist = await prisma.wishlist.findUnique({
     where: {
-      userId: userId,
+      userId: user.id,
     },
     include: {
       games: {
@@ -42,7 +41,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Wishlist not found" }, { status: 400 });
   }
 
-  return NextResponse.json(wishlist);
+  // Map over the results to extract the game details from the join table entities
+  const gameDetails = wishlist.games.map(item => item.game)
+  return NextResponse.json(gameDetails);
 }
 
 export async function POST(request: NextRequest) {
