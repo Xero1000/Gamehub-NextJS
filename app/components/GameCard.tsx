@@ -22,18 +22,40 @@ interface Props {
 
 // Function to post game data to the wishlist
 export const addToWishlist = async (game: Game) => {
-  const { id, name } = game;
-  const response = await axios.post('/api/wishlist', { gameId: id, name });
+  const {
+    id,
+    name,
+    background_image,
+    metacritic,
+    rating_top,
+  } = game;
+
+  const response = await axios.post("/api/wishlist", {
+    id,
+    name,
+    background_image,
+    metacritic,
+    rating_top,
+  });
   return response.data;
 };
 
 const GameCard = ({ game }: Props) => {
   const { status } = useSession();
 
-  const mutation = useMutation(() => addToWishlist(game));
+  const mutation = useMutation(addToWishlist, {
+    onSuccess: () => {
+      // Handle success (e.g., show a success message or update local state/UI)
+      console.log("Game added to wishlist successfully!");
+    },
+    onError: (error) => {
+      // Handle error (e.g., show an error message)
+      console.error("Failed to add game to wishlist:", error);
+    },
+  });
 
   const handleAddToWishlist = () => {
-    mutation.mutate();
+    mutation.mutate(game);
   };
 
   return (
@@ -52,11 +74,19 @@ const GameCard = ({ game }: Props) => {
         <Link href={`/games/${game.slug}`}>
           <Heading fontSize="2xl">
             {game.name}
-              <Emoji rating={game.rating_top} />
+            <Emoji rating={game.rating_top} />
           </Heading>
         </Link>
         <HStack justify="right">
-          {status === "authenticated" && <Button mt={3} onClick={handleAddToWishlist} isLoading={mutation.isLoading}>Add to Wishlist</Button>}
+          {status === "authenticated" && (
+            <Button
+              mt={3}
+              onClick={handleAddToWishlist}
+              isLoading={mutation.isLoading}
+            >
+              Add to Wishlist
+            </Button>
+          )}
         </HStack>
       </CardBody>
     </Card>
