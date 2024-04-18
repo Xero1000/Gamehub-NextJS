@@ -1,4 +1,5 @@
 import {
+  Button,
   Image,
   Table,
   TableContainer,
@@ -12,12 +13,36 @@ import { Game } from "@prisma/client";
 import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "../components/CriticScore";
 import Emoji from "../components/Emoji";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 interface Props {
   games: Game[];
 }
 
 const WishlistTable = ({ games }: Props) => {
+  const queryClient = useQueryClient(); // Access the query client to handle refetching
+
+  const deleteMutation = useMutation(
+    (gameId: string) => {
+      return axios.delete(`/api/wishlist/${gameId}`);
+    },
+    {
+      onSuccess: () => {
+        // Optionally refetch wishlist data after deletion
+        queryClient.invalidateQueries(["wishlist"]);
+      },
+      onError: (error) => {
+        // Handle error case
+        console.error("Error deleting game from wishlist:", error);
+      },
+    }
+  );
+
+  const handleRemove = (gameId: string) => {
+    deleteMutation.mutate(gameId);
+  };
+
   return (
     <TableContainer>
       <Table variant="simple">
@@ -27,6 +52,7 @@ const WishlistTable = ({ games }: Props) => {
             <Th>Name</Th>
             <Th>Metacritic Score</Th>
             <Th>Rating</Th>
+            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -46,6 +72,9 @@ const WishlistTable = ({ games }: Props) => {
               </Td>
               <Td>
                 <Emoji rating={game.rating_top} />
+              </Td>
+              <Td>
+                <Button onClick={() => handleRemove(game.id)}>Remove</Button>
               </Td>
             </Tr>
           ))}

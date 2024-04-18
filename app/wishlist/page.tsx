@@ -17,7 +17,7 @@ const WishlistPage = () => {
     isLoading,
     error,
   } = useQuery<Game[]>({
-    queryKey: ["games"],
+    queryKey: ["wishlist"],
     queryFn: () => axios.get<Game[]>("/api/wishlist").then((res) => res.data),
     // Enable fetching only if the user is authenticated.
     enabled: status === "authenticated",

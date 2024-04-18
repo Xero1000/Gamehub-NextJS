@@ -54,21 +54,21 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-
+  
   const userEmail = session.user?.email;
   if (!userEmail) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
-
+  
   const user = await prisma.user.findUnique({
     where: { email: userEmail },
   });
-
+  
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
-
-  const gameId = String(body.gameId);
+  
+  const gameId = String(body.id);
 
   let wishlist = await prisma.wishlist.findUnique({
     where: { userId: user.id },
@@ -128,3 +128,4 @@ export async function POST(request: NextRequest) {
     { status: 200 }
   );
 }
+
