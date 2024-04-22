@@ -4,7 +4,6 @@ import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useDeleteGameFromWishlist from "../hooks/useDeleteGameFromWishlist";
 import useGames from "../hooks/useGames";
 import useWishlistIds from "../hooks/useWishlistIds";
 import GameCard from "./GameCard";
@@ -19,13 +18,6 @@ const GameGrid = () => {
 
   const { data: wishlistGamesIds, isLoading: wishlistLoading } =
     useWishlistIds(status);
-
-  const { mutate: removeGame, isLoading: mutateLoading } =
-    useDeleteGameFromWishlist();
-
-  const handleRemoveGame = (gameId: string) => {
-    removeGame(gameId);
-  };
 
   if (error) return <Text>{error.message}</Text>;
 
@@ -62,7 +54,6 @@ const GameGrid = () => {
                           !!wishlistGamesIds?.includes(String(game.id))
                         }
                         status={status}
-                        handleRemoveGame={handleRemoveGame}
                       />
                     </GameCardContainer>
                   ))}

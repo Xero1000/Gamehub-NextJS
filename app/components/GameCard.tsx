@@ -5,10 +5,12 @@ import {
   HStack,
   Heading,
   Image,
+  Spinner,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Game from "../entities/Game";
 import useAddGameToWishlist from "../hooks/useAddGameToWishlist";
+import useDeleteGameFromWishlist from "../hooks/useDeleteGameFromWishlist";
 import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
@@ -17,15 +19,20 @@ import PlatformIconList from "./PlatformIconList";
 interface Props {
   game: Game;
   isOnWishlist: boolean;
-  status: "loading" | "authenticated" | "unauthenticated"
-  handleRemoveGame: (gameId: string) => void;
+  status: "loading" | "authenticated" | "unauthenticated";
 }
 
-const GameCard = ({ game, isOnWishlist, status, handleRemoveGame }: Props) => {
-  const addMutation = useAddGameToWishlist()
+const GameCard = ({ game, isOnWishlist, status }: Props) => {
+  const addMutation = useAddGameToWishlist();
 
   const handleAddToWishlist = () => {
     addMutation.mutate(game);
+  };
+
+  const deleteMutation = useDeleteGameFromWishlist();
+
+  const handleRemoveFromWishlist = (gameId: string) => {
+    deleteMutation.mutate(gameId);
   };
 
   return (
@@ -51,11 +58,21 @@ const GameCard = ({ game, isOnWishlist, status, handleRemoveGame }: Props) => {
           {status === "authenticated" && (
             <Button
               mt={3}
-              onClick={isOnWishlist ? () => handleRemoveGame(String(game.id)) : handleAddToWishlist}
-              isLoading={addMutation.isLoading}
-              colorScheme={isOnWishlist ? "green": "gray"}
+              onClick={
+                isOnWishlist
+                  ? () => handleRemoveFromWishlist(String(game.id))
+                  : handleAddToWishlist
+              }
+              isDisabled={addMutation.isLoading || deleteMutation.isLoading}
+              colorScheme={isOnWishlist ? "green" : "gray"}
             >
-              {isOnWishlist ? "Added to Wishlist" : "Add to Wishlist"}
+              {addMutation.isLoading || deleteMutation.isLoading ? (
+                <Spinner />
+              ) : isOnWishlist ? (
+                "Added to Wishlist"
+              ) : (
+                "Add to Wishlist"
+              )}
             </Button>
           )}
         </HStack>
