@@ -22,7 +22,7 @@ interface Props {
 
 const WishlistTable = ({ games }: Props) => {
   const queryClient = useQueryClient(); // Access the query client to handle refetching
-
+  
   const deleteMutation = useMutation(
     (gameId: string) => {
       return axios.delete(`/api/wishlist/${gameId}`);

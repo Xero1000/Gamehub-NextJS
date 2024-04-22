@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { Game } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";

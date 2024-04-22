@@ -7,16 +7,40 @@ import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import useWishlistIds from "../hooks/useWishlistIds";
 
 const GameGrid = () => {
-  const {
-    data,
-    error,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-  } = useGames();
+  const queryClient = useQueryClient(); // Access the query client to handle refetching
+  
+  const { data, error, isLoading, fetchNextPage, hasNextPage } = useGames();
   const skeletons = [1, 2, 3, 4, 5, 6];
+
+  const { status } = useSession();
+
+  const { data: wishlistGamesIds, isLoading: wishlistLoading } = useWishlistIds(status)
+
+  const deleteMutation = useMutation(
+    (gameId: string) => {
+      return axios.delete(`/api/wishlist/${gameId}`);
+    },
+    {
+      onSuccess: () => {
+        // Optionally refetch wishlist data after deletion
+        queryClient.invalidateQueries(["wishlist"]);
+      },
+      onError: (error) => {
+        // Handle error case
+        console.error("Error deleting game from wishlist:", error);
+      },
+    }
+  );
+
+  const handleRemove = (gameId: string) => {
+    deleteMutation.mutate(gameId);
+  };
 
   if (error) return <Text>{error.message}</Text>;
 
@@ -47,7 +71,13 @@ const GameGrid = () => {
                 <React.Fragment key={index}>
                   {page.results.map((game) => (
                     <GameCardContainer key={game.id}>
-                      <GameCard game={game} />
+                      <GameCard
+                        game={game}
+                        isOnWishlist={
+                          !!wishlistGamesIds?.includes(String(game.id))
+                        }
+                        handleRemove={handleRemove}
+                      />
                     </GameCardContainer>
                   ))}
                 </React.Fragment>
