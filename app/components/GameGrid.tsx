@@ -1,45 +1,30 @@
 "use client";
 
 import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import useDeleteGameFromWishlist from "../hooks/useDeleteGameFromWishlist";
 import useGames from "../hooks/useGames";
+import useWishlistIds from "../hooks/useWishlistIds";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { useSession } from "next-auth/react";
-import useWishlistIds from "../hooks/useWishlistIds";
 
 const GameGrid = () => {
-  const queryClient = useQueryClient(); // Access the query client to handle refetching
-  
   const { data, error, isLoading, fetchNextPage, hasNextPage } = useGames();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   const { status } = useSession();
 
-  const { data: wishlistGamesIds, isLoading: wishlistLoading } = useWishlistIds(status)
+  const { data: wishlistGamesIds, isLoading: wishlistLoading } =
+    useWishlistIds(status);
 
-  const deleteMutation = useMutation(
-    (gameId: string) => {
-      return axios.delete(`/api/wishlist/${gameId}`);
-    },
-    {
-      onSuccess: () => {
-        // Optionally refetch wishlist data after deletion
-        queryClient.invalidateQueries(["wishlist"]);
-      },
-      onError: (error) => {
-        // Handle error case
-        console.error("Error deleting game from wishlist:", error);
-      },
-    }
-  );
+  const { mutate: removeGame, isLoading: mutateLoading } =
+    useDeleteGameFromWishlist();
 
-  const handleRemove = (gameId: string) => {
-    deleteMutation.mutate(gameId);
+  const handleRemoveGame = (gameId: string) => {
+    removeGame(gameId);
   };
 
   if (error) return <Text>{error.message}</Text>;
@@ -76,7 +61,8 @@ const GameGrid = () => {
                         isOnWishlist={
                           !!wishlistGamesIds?.includes(String(game.id))
                         }
-                        handleRemove={handleRemove}
+                        status={status}
+                        handleRemoveGame={handleRemoveGame}
                       />
                     </GameCardContainer>
                   ))}

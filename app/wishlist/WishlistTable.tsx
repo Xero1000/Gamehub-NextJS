@@ -10,37 +10,21 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { Game } from "@prisma/client";
-import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "../components/CriticScore";
 import Emoji from "../components/Emoji";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import useDeleteGameFromWishlist from "../hooks/useDeleteGameFromWishlist";
+import getCroppedImageUrl from "../services/image-url";
 
 interface Props {
   games: Game[];
 }
 
 const WishlistTable = ({ games }: Props) => {
-  const queryClient = useQueryClient(); // Access the query client to handle refetching
   
-  const deleteMutation = useMutation(
-    (gameId: string) => {
-      return axios.delete(`/api/wishlist/${gameId}`);
-    },
-    {
-      onSuccess: () => {
-        // Optionally refetch wishlist data after deletion
-        queryClient.invalidateQueries(["wishlist"]);
-      },
-      onError: (error) => {
-        // Handle error case
-        console.error("Error deleting game from wishlist:", error);
-      },
-    }
-  );
+  const { mutate: removeGame, isLoading } = useDeleteGameFromWishlist()
 
   const handleRemove = (gameId: string) => {
-    deleteMutation.mutate(gameId);
+    removeGame(gameId);
   };
 
   return (
