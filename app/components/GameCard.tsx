@@ -43,9 +43,9 @@ const GameCard = ({ game, isOnWishlist, status }: Props) => {
       />
       <CardBody>
         <HStack justifyContent="space-between" marginBottom={3}>
-          <PlatformIconList
+          {game.parent_platforms && <PlatformIconList
             platforms={game.parent_platforms.map((p) => p.platform)}
-          />
+          />}
           <CriticScore score={game.metacritic} />
         </HStack>
         <Link href={`/games/${game.slug}`}>
