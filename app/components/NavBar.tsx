@@ -1,6 +1,14 @@
 "use client";
 
-import { Avatar, HStack, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/logo.webp";
@@ -20,8 +28,17 @@ const NavBar = () => {
       <ColorModeSwitch />
       {status === "authenticated" && (
         <Menu>
-          <MenuButton as={Avatar} src={session.user?.image!} size="md" mr={2} cursor="pointer"/>
-          <MenuList>
+          <MenuButton
+            as={Avatar}
+            src={session.user?.image!}
+            size="md"
+            mr={2}
+            cursor="pointer"
+          />
+          <MenuList minWidth="0" width="150px">
+            <MenuItem>
+              <Link href="/wishlist">Wishlist</Link>
+            </MenuItem>
             <MenuItem>
               <Link href="/api/auth/signout">Logout</Link>
             </MenuItem>
@@ -29,7 +46,11 @@ const NavBar = () => {
         </Menu>
       )}
       {status === "unauthenticated" && (
-        <Link href="/api/auth/signin">Login</Link>
+        <Link href="/api/auth/signin" passHref>
+          <Button as="a" colorScheme="green">
+            Login
+          </Button>
+        </Link>
       )}
     </HStack>
   );
