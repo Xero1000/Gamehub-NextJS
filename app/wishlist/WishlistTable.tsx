@@ -18,6 +18,7 @@ import useDeleteGameFromWishlist from "../hooks/useDeleteGameFromWishlist";
 import useWindowSize from "../hooks/useWindowSize";
 import getCroppedImageUrl from "../services/image-url";
 import { sort } from "fast-sort";
+import Link from "next/link";
 
 interface Props {
   games: Game[];
@@ -41,7 +42,7 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
       case "rating":
         return (game: Game) => game.rating_top;
       default:
-        return (game: Game) => game.createdAt;
+        return (game: Game) => game.updatedAt;
     }
   };
 
@@ -50,7 +51,6 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
       ? sort(games).asc(getSortKey(sortOrder))
       : sort(games).desc(getSortKey(sortOrder));
 
-  console.log(sortOrder);
   return (
     <TableContainer>
       <Table variant="simple">
@@ -71,13 +71,18 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
                   />
                   <Box className="flex" paddingLeft={5}>
                     <Box>
-                      <Heading
-                        fontSize={{ base: "20px", md: "30px" }}
-                        pb={width > 700 ? 0 : 2}
-                        whiteSpace="normal"
-                      >
-                        {game.name}
-                      </Heading>
+                      <Link href={`/games/${game.slug}`}>
+                        <Heading
+                          fontSize={{ base: "20px", md: "30px" }}
+                          pb={width > 700 ? 0 : 2}
+                          whiteSpace="normal"
+                          _hover={{
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {game.name}
+                        </Heading>
+                      </Link>
                       <Box
                         className={width > 700 ? "flex" : "normal"}
                         alignItems="center"
@@ -112,7 +117,7 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
                                 )}
                               </Box>
                               <Button
-                                ml={2}
+                                ml={game.metacritic && game.rating_top ? 2 : -3}
                                 onClick={() => handleRemove(game.id)}
                               >
                                 Remove

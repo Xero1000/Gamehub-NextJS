@@ -44,7 +44,6 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
   if (error) return <Text>Error loading games.</Text>;
 
   if (!games) return <Text>Wishlist Not Found</Text>;
-  console.log(games.length);
 
   return (
     <>
