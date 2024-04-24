@@ -1,14 +1,19 @@
 "use client";
 
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 import { Game } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import WishlistTable from "./WishlistTable";
+import SortSelector from "./SortSelector";
 
-const WishlistPage = () => {
+interface Props {
+  searchParams: { sortOrder: string };
+}
+
+const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
   const { status, data: session } = useSession();
 
   // Use the useQuery hook consistently regardless of the authentication status.
@@ -42,7 +47,13 @@ const WishlistPage = () => {
 
   return (
     <>
-      <WishlistTable games={games} />
+      <Box maxWidth={{ base: "100%", lg: "80%", xl: "60%" }} marginX="auto">
+        <Box marginX={5}>
+          <Heading>{`${session.user?.name}'s Wishlist`}</Heading>
+          <SortSelector />
+        </Box>
+        <WishlistTable games={games} sortOrder={sortOrder}/>
+      </Box>
     </>
   );
 };

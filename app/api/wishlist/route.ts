@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
   if (existingGame) {
     return NextResponse.json(
       { error: "Game already in wishlist" },
-      { status: 409 }
+      { status: 400 }
     );
   }
 
