@@ -90,6 +90,7 @@ export async function POST(request: NextRequest) {
       background_image: body.background_image || null,
       metacritic: body.metacritic || null,
       rating_top: body.rating_top || null,
+      slug: body.slug
     },
     create: {
       id: gameId,
@@ -97,6 +98,7 @@ export async function POST(request: NextRequest) {
       background_image: body.background_image || null, 
       metacritic: body.metacritic || null, 
       rating_top: body.rating_top || null,
+      slug: body.slug
     },
   });
 

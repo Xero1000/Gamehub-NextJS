@@ -44,6 +44,7 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
   if (error) return <Text>Error loading games.</Text>;
 
   if (!games) return <Text>Wishlist Not Found</Text>;
+  console.log(games.length);
 
   return (
     <>
@@ -52,7 +53,13 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
           <Heading>{`${session.user?.name}'s Wishlist`}</Heading>
           <SortSelector />
         </Box>
-        <WishlistTable games={games} sortOrder={sortOrder}/>
+        {games.length > 0 ? (
+          <WishlistTable games={games} sortOrder={sortOrder} />
+        ) : (
+          <Text marginX={5} fontSize="xl">
+            Wishlist is Empty
+          </Text>
+        )}
       </Box>
     </>
   );

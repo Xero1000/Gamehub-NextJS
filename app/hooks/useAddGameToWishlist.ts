@@ -4,7 +4,7 @@ import axios from "axios";
 
 // Function to post game data to the wishlist
 export const addToWishlist = async (game: Game) => {
-  const { id, name, background_image, metacritic, rating_top } = game;
+  const { id, name, background_image, metacritic, rating_top, slug } = game;
 
   const response = await axios.post("/api/wishlist", {
     id,
@@ -12,6 +12,7 @@ export const addToWishlist = async (game: Game) => {
     background_image,
     metacritic,
     rating_top,
+    slug,
   });
   return response.data;
 };

@@ -1,5 +1,5 @@
 
-const getCroppedImageUrl = (url: string) => {
+const getCroppedImageUrl = (url?: string) => {
   if (!url) return "/no-image-placeholder-6f3882e0.webp";
 
   const target = "media/";

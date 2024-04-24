@@ -75,9 +75,10 @@ model VerificationToken {
 model Game {
   id               String          @id @default(cuid())
   name             String
-  background_image String
-  metacritic       Int
-  rating_top       Int
+  background_image String?
+  metacritic       Int?
+  rating_top       Int?
+  slug             String
   Wishlists        WishlistGames[] // Many-to-many relation
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt

@@ -60,7 +60,11 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
               <Td>
                 <Flex>
                   <Image
-                    src={getCroppedImageUrl(game.background_image)}
+                    src={
+                      game.background_image
+                        ? getCroppedImageUrl(game.background_image)
+                        : getCroppedImageUrl()
+                    }
                     alt={`${game.name}'s image`}
                     maxWidth={width > 700 ? "200px" : "100px"}
                     objectFit="cover"
@@ -83,21 +87,29 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
                           <>
                             <Flex gap={3} alignItems="center">
                               <Text>Metacritic: </Text>
-                              <CriticScore score={game.metacritic} />
+                              {game.metacritic && (
+                                <CriticScore score={game.metacritic} />
+                              )}
                             </Flex>
                             <Flex gap={3} alignItems="center">
                               <Text pl={width > 700 ? 3 : 0}>Rating: </Text>
                               <Box pb={2}>
-                                <Emoji rating={game.rating_top} />
+                                {game.rating_top && (
+                                  <Emoji rating={game.rating_top} />
+                                )}
                               </Box>
                             </Flex>
                           </>
                         ) : (
                           <>
                             <Flex gap={3} alignItems="center">
-                              <CriticScore score={game.metacritic} />
+                              {game.metacritic && (
+                                <CriticScore score={game.metacritic} />
+                              )}
                               <Box pb={2}>
-                                <Emoji rating={game.rating_top} />
+                                {game.rating_top && (
+                                  <Emoji rating={game.rating_top} />
+                                )}
                               </Box>
                               <Button
                                 ml={2}
