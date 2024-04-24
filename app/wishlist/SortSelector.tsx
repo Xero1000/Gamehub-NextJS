@@ -20,38 +20,30 @@ const SortSelector = () => {
           {`Sort by: ${sortCategory}`}
         </MenuButton>
         <MenuList>
-          <MenuItem>
-            <Link
-              href="/wishlist?sortOrder=recentlyAdded"
-              onClick={() => setSortCategory("Recently Added")}
-            >
-              Recently Added
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link
-              href="/wishlist?sortOrder=name"
-              onClick={() => setSortCategory("Name")}
-            >
-              Name
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link
-              href="/wishlist?sortOrder=metacritic"
-              onClick={() => setSortCategory("Metacritic")}
-            >
-              Metacritic
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link
-              href="/wishlist?sortOrder=rating"
-              onClick={() => setSortCategory("Rating")}
-            >
-              Rating
-            </Link>
-          </MenuItem>
+          <Link
+            href="/wishlist?sortOrder=recentlyAdded"
+            onClick={() => setSortCategory("Recently Added")}
+          >
+            <MenuItem>Recently Added</MenuItem>
+          </Link>
+          <Link
+            href="/wishlist?sortOrder=name"
+            onClick={() => setSortCategory("Name")}
+          >
+            <MenuItem>Name</MenuItem>
+          </Link>
+          <Link
+            href="/wishlist?sortOrder=metacritic"
+            onClick={() => setSortCategory("Metacritic")}
+          >
+            <MenuItem>Metacritic</MenuItem>
+          </Link>
+          <Link
+            href="/wishlist?sortOrder=rating"
+            onClick={() => setSortCategory("Rating")}
+          >
+            <MenuItem>Rating</MenuItem>
+          </Link>
         </MenuList>
       </Menu>
     </Box>

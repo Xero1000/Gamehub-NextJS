@@ -36,12 +36,12 @@ const NavBar = () => {
             cursor="pointer"
           />
           <MenuList minWidth="0" width="150px">
-            <MenuItem>
-              <Link href="/wishlist">Wishlist</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/api/auth/signout">Logout</Link>
-            </MenuItem>
+            <Link href="/wishlist">
+              <MenuItem>Wishlist</MenuItem>
+            </Link>
+            <Link href="/api/auth/signout">
+              <MenuItem>Logout</MenuItem>
+            </Link>
           </MenuList>
         </Menu>
       )}
