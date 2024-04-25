@@ -9,16 +9,17 @@ import {
   Tbody,
   Td,
   Text,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { Game } from "@prisma/client";
+import { sort } from "fast-sort";
+import Link from "next/link";
+import { useState } from "react";
 import CriticScore from "../components/CriticScore";
 import Emoji from "../components/Emoji";
 import useDeleteGameFromWishlist from "../hooks/useDeleteGameFromWishlist";
 import useWindowSize from "../hooks/useWindowSize";
 import getCroppedImageUrl from "../services/image-url";
-import { sort } from "fast-sort";
-import Link from "next/link";
 
 interface Props {
   games: Game[];
@@ -27,10 +28,14 @@ interface Props {
 
 const WishlistTable = ({ games, sortOrder }: Props) => {
   const { width } = useWindowSize();
-  const { mutate: removeGame, isLoading } = useDeleteGameFromWishlist();
+  const deleteMutation = useDeleteGameFromWishlist();
+  const [removingGameId, setRemovingGameId] = useState<string | null>();
 
   const handleRemove = (gameId: string) => {
-    removeGame(gameId);
+    setRemovingGameId(gameId);
+    deleteMutation.mutate(gameId, {
+      onSettled: () => setRemovingGameId(null),
+    });
   };
 
   const getSortKey = (sortOrder: string) => {
@@ -119,6 +124,11 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
                               <Button
                                 ml={game.metacritic && game.rating_top ? 2 : -3}
                                 onClick={() => handleRemove(game.id)}
+                                isLoading={
+                                  deleteMutation.isLoading &&
+                                  removingGameId === game.id
+                                }
+                                isDisabled={deleteMutation.isLoading}
                               >
                                 Remove
                               </Button>
@@ -132,7 +142,15 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
               </Td>
               {width > 490 && (
                 <Td>
-                  <Button onClick={() => handleRemove(game.id)}>Remove</Button>
+                  <Button
+                    onClick={() => handleRemove(game.id)}
+                    isLoading={
+                      deleteMutation.isLoading && removingGameId === game.id
+                    }
+                    isDisabled={deleteMutation.isLoading}
+                  >
+                    Remove
+                  </Button>
                 </Td>
               )}
             </Tr>

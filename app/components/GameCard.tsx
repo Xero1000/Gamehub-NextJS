@@ -65,16 +65,11 @@ const GameCard = ({ game, isOnWishlist, status }: Props) => {
                   ? () => handleRemoveFromWishlist(String(game.id))
                   : handleAddToWishlist
               }
+              isLoading={addMutation.isLoading || deleteMutation.isLoading}
               isDisabled={addMutation.isLoading || deleteMutation.isLoading}
               colorScheme={isOnWishlist ? "green" : "gray"}
             >
-              {addMutation.isLoading || deleteMutation.isLoading ? (
-                <Spinner />
-              ) : isOnWishlist ? (
-                "Added to Wishlist"
-              ) : (
-                "Add to Wishlist"
-              )}
+              {isOnWishlist ? "Added to Wishlist" : "Add to Wishlist"}
             </Button>
           )}
         </HStack>
