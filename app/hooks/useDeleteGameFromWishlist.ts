@@ -1,8 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useContext } from "react";
+import errorContext from "../state-management/contexts/errorContext";
 
 const useDeleteGameFromWishlist = () => {
   const queryClient = useQueryClient();
+  const { errorOccured, setErrorOccured, setMessage } = useContext(errorContext)
 
   const deleteMutation = useMutation(
     (gameId: string) => {
@@ -10,12 +13,16 @@ const useDeleteGameFromWishlist = () => {
     },
     {
       onSuccess: () => {
-        // Optionally refetch wishlist data after deletion
+        // Refetch wishlist data after deletion
         queryClient.invalidateQueries(["wishlist"]);
+        if (errorOccured) {
+          setErrorOccured(false)
+          setMessage("")
+        }
       },
-      onError: (error) => {
-        // Handle error case
-        console.error("Error deleting game from wishlist:", error);
+      onError: () => {
+        setErrorOccured(true)
+        setMessage("Unable to remove game from wishlist")
       },
     }
   );

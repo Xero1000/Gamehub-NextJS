@@ -1,5 +1,6 @@
 import { Box, Grid, GridItem, HStack, Show, SimpleGrid } from "@chakra-ui/react";
 import ClearFilters from "./components/ClearFilters";
+import ErrorAlert from "./components/ErrorAlert";
 import GameGrid from "./components/GameGrid";
 import GameHeading from "./components/GameHeading";
 import GenreList from "./components/GenreList";

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./components/providers";
 import NavBar from "./components/NavBar";
 import { Box } from "@chakra-ui/react";
+import ErrorAlert from "./components/ErrorAlert";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <NavBar />
+          <ErrorAlert />
           <Box padding={5}>
             {children}
           </Box>

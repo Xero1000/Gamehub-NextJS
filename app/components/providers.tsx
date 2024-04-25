@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import theme from "../theme";
 import AuthProvider from "../auth/Provider";
+import ErrorContextProvider from "../state-management/providers/ErrorContextProvider";
 
 const queryClient = new QueryClient();
 
@@ -14,9 +15,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <AuthProvider>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          {children}
-          <ReactQueryDevtools />
+          <ErrorContextProvider>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+            {children}
+            <ReactQueryDevtools />
+          </ErrorContextProvider>
         </AuthProvider>
       </ChakraProvider>
     </QueryClientProvider>

@@ -20,6 +20,9 @@ const theme = extendTheme({
       900: "111",
     },
   },
+  shadows: {
+    customDark: '0px 8px 24px 20px rgba(0, 0, 0, 0.8)' 
+  }
 });
 
 export default theme;

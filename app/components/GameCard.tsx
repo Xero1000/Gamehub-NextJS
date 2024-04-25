@@ -5,7 +5,6 @@ import {
   HStack,
   Heading,
   Image,
-  Spinner,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Game from "../entities/Game";
