@@ -6,6 +6,7 @@ import Genre from "../entities/Genre";
 
 const apiClient = new APIClient<Genre>("/genres");
 
+// Hook for fetching the genres
 const useGenres = () =>
   useQuery({
     queryKey: ["genres"],

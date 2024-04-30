@@ -4,6 +4,7 @@ interface Props {
   rating: number;
 }
 
+// Displays an emoji based on rating
 const Emoji = ({ rating }: Props) => {
   if (rating < 3) return null;
 

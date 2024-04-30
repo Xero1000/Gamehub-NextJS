@@ -21,6 +21,11 @@ interface Props {
   status: "loading" | "authenticated" | "unauthenticated";
 }
 
+/**
+ * A card that displays information based on the game prop
+ * Includes a link to the game's detail page
+ * Includes ability to add or remove game from wishlist if user is logged in
+ */
 const GameCard = ({ game, isOnWishlist, status }: Props) => {
   const addMutation = useAddGameToWishlist();
 
@@ -36,11 +41,13 @@ const GameCard = ({ game, isOnWishlist, status }: Props) => {
 
   return (
     <Card>
+      {/* Display game image */}
       <Image
         src={getCroppedImageUrl(game.background_image)}
         alt={`${game.name} Image`}
       />
       <CardBody>
+        {/* Display platforms and metacritic score */}
         <HStack justifyContent="space-between" marginBottom={3}>
           {game.parent_platforms && (
             <PlatformIconList
@@ -49,12 +56,16 @@ const GameCard = ({ game, isOnWishlist, status }: Props) => {
           )}
           <CriticScore score={game.metacritic} />
         </HStack>
+
+        {/* Link to game details page */}
         <Link href={`/games/${game.slug}`}>
           <Heading fontSize="2xl" _hover={{ textDecoration: "underline" }}>
             {game.name}
             <Emoji rating={game.rating_top} />
           </Heading>
         </Link>
+
+        {/* Add/Remove from wishlist button for logged in users */}
         <HStack justify="right">
           {status === "authenticated" && (
             <Button

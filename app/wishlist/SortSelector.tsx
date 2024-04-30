@@ -10,9 +10,17 @@ import Link from "next/link";
 import { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 
+// A dropdown menu to select the category in which games in wishlist are sorted 
 const SortSelector = () => {
   const [sortCategory, setSortCategory] = useState("Recently Added");
 
+  /**
+   * User can sort by:
+   *    Most recently added games
+   *    Name
+   *    Metacritic score
+   *    Rating
+   */ 
   return (
     <Box marginY={5}>
       <Menu>

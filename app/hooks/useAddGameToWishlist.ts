@@ -19,8 +19,10 @@ export const addToWishlist = async (game: Game) => {
   return response.data;
 };
 
+// Hook for adding a game to the wishlist 
 const useAddGameToWishlist = () => {
   const queryClient = useQueryClient(); // Access the query client to handle refetching
+  // context to trigger ErrorAlert box 
   const { errorOccured, setErrorOccured, setMessage } = useContext(errorContext)
 
   const addMutation = useMutation(addToWishlist, {
@@ -32,7 +34,7 @@ const useAddGameToWishlist = () => {
         setMessage("")
       }
     },
-    onError: (error) => {
+    onError: () => {
       setErrorOccured(true)
       setMessage("Unable to add game to wishlist")
     },

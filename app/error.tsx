@@ -3,6 +3,7 @@ import { Text } from "@chakra-ui/react";
 import React from "react";
 import ErrorContainer from "./components/ErrorContainer";
 
+// Error page for when an error occurs
 const ErrorPage = () => {
   return (
     <ErrorContainer>

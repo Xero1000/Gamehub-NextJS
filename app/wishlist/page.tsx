@@ -9,14 +9,16 @@ import Link from "next/link";
 import WishlistTable from "./WishlistTable";
 import SortSelector from "./SortSelector";
 
+// query string parameter for sorting wishlist table
 interface Props {
   searchParams: { sortOrder: string };
 }
 
+// Page to display a table containing games in a logged in user's wishlist
 const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
   const { status, data: session } = useSession();
 
-  // Use the useQuery hook consistently regardless of the authentication status.
+  // hook to fetch the games in the user's wishlist
   const {
     data: games,
     isLoading,
@@ -30,6 +32,7 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
 
   if (status === "loading") return <Text>Loading session...</Text>;
 
+  // If the user is not logged in
   if (!session) {
     return (
       <Box>
@@ -39,6 +42,7 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
     );
   }
 
+  // Display messages depending on loading and error status or if no games were found
   if (isLoading) return <Text>Loading wishlist...</Text>;
 
   if (error) return <Text>Error loading games.</Text>;
@@ -48,10 +52,12 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
   return (
     <>
       <Box maxWidth={{ base: "100%", lg: "80%", xl: "60%" }} marginX="auto">
+        {/* Heading with logged in user's name */}
         <Box marginX={5}>
           <Heading>{`${session.user?.name}'s Wishlist`}</Heading>
           <SortSelector />
         </Box>
+        {/* If wishlist has games, a table showing them is displayed */}
         {games.length > 0 ? (
           <WishlistTable games={games} sortOrder={sortOrder} />
         ) : (

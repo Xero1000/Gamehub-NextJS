@@ -17,7 +17,9 @@ interface Props {
   platforms: Platform[];
 }
 
+// Displays platform icons horizontally 
 const PlatformIconList = ({ platforms }: Props) => {
+  // Map of platform slugs to their respective icons
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     playstation: FaPlaystation,
@@ -31,6 +33,7 @@ const PlatformIconList = ({ platforms }: Props) => {
   };
   return (
     <>
+      {/* Horizontal stack of platform icons */}
       <HStack marginY={1}>
         {platforms.map((platform) => (
           <Icon

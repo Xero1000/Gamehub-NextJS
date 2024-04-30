@@ -12,6 +12,10 @@ import { SlideFade } from "@chakra-ui/transition";
 import { useContext, useState } from "react";
 import errorContext from "../state-management/contexts/errorContext";
 
+/**
+ * Alert box that occurs if a user tries and fails to add 
+ * or remove a game from the wishlist.
+ */
 const ErrorAlert = () => {
   const { errorOccured, setErrorOccured, message, setMessage } =
     useContext(errorContext);
@@ -28,12 +32,14 @@ const ErrorAlert = () => {
       zIndex={1}
     >
       <SlideFade in={errorOccured} offsetY="-20px">
+         {/* Display error alert with custom styles */}
         <Alert status="error" variant="subtle" backgroundColor="red.700" shadow="customDark" borderRadius={6}>
           <AlertIcon />
           <Box>
             <AlertTitle>Error!</AlertTitle>
             <AlertDescription>{message}</AlertDescription>
           </Box>
+          {/* Close button to hide alert and reset error state */}
           <CloseButton
             alignSelf="flex-start"
             position="relative"

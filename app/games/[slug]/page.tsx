@@ -11,12 +11,14 @@ interface Props {
   params: { slug: string };
 }
 
+// Page for displaying more detailed information for a single game
 const GameDetailPage = ({ params: { slug } }: Props) => {
+  // Fetch game data based on the slug from the URL
   const { data: game, isLoading, error } = useGame(slug);
 
   if (isLoading) return <Spinner />;
 
-  // Check if there was an error in fetching the game details
+  // Display error page if data fetching failed
   if (error || !game) {
     return <ErrorPage />;
   }

@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import useGameQueryStore from "../store";
 
+// A search bar that filters games based on user input.
 const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
   const setSearchText = useGameQueryStore((s) => s.setSearchText);

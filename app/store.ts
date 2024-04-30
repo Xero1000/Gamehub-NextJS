@@ -16,6 +16,8 @@ interface GameQueryStore {
   resetFilters: () => void;
 }
 
+
+// Creates a store to manage game query parameters using Zustand.
 const useGameQueryStore = create<GameQueryStore>((set) => ({
   gameQuery: {},
   setSearchText: (searchText) => set(() => ({ gameQuery: { searchText } })),

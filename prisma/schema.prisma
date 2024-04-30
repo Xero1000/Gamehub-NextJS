@@ -79,7 +79,7 @@ model Game {
   metacritic       Int?
   rating_top       Int?
   slug             String
-  Wishlists        WishlistGames[] // Many-to-many relation
+  Wishlists        WishlistGames[] // Many-to-many relation with WishlistGames
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
 }

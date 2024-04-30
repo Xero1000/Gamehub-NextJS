@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// Hook for fetching the current size of the window
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
     width: 0,

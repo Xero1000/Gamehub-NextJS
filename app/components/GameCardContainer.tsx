@@ -5,6 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
+// Shared styling for GameCards
 const GameCardContainer = ({ children }: Props) => {
   return (
     <Box

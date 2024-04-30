@@ -21,13 +21,20 @@ const NavBar = () => {
 
   return (
     <HStack padding="10px">
+      {/* Logo linking back to home */}
       <Link href="/">
         <Image src={logo} alt="logo" width={90} height={90} objectFit="cover" />
       </Link>
+
+      {/* Search input component */}
       <SearchInput />
+
+      {/* Toggle button for color mode */}
       <ColorModeSwitch />
+
       {status === "authenticated" && (
         <Menu>
+          {/* Avatar button for user menu */}
           <MenuButton
             as={Avatar}
             src={session.user?.image!}
@@ -35,6 +42,7 @@ const NavBar = () => {
             mr={2}
             cursor="pointer"
           />
+          {/* User menu options */}
           <MenuList minWidth="0" width="150px">
             <Link href="/wishlist">
               <MenuItem>Wishlist</MenuItem>
@@ -45,6 +53,7 @@ const NavBar = () => {
           </MenuList>
         </Menu>
       )}
+      {/* Link to sign-in page */}
       {status === "unauthenticated" && (
         <Link href="/api/auth/signin" passHref>
           <Button as="a" colorScheme="green">

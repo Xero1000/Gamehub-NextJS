@@ -3,8 +3,10 @@ import axios from "axios";
 import { useContext } from "react";
 import errorContext from "../state-management/contexts/errorContext";
 
+// Hook for deleting game from the wishlist
 const useDeleteGameFromWishlist = () => {
   const queryClient = useQueryClient();
+  // Context to set ErrorAlert box
   const { errorOccured, setErrorOccured, setMessage } = useContext(errorContext)
 
   const deleteMutation = useMutation(

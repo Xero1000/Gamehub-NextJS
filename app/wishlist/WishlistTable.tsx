@@ -9,7 +9,7 @@ import {
   Tbody,
   Td,
   Text,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { Game } from "@prisma/client";
 import { sort } from "fast-sort";
@@ -26,11 +26,14 @@ interface Props {
   sortOrder: string;
 }
 
+// Table displaying games stored in a logged in user's wishlist
 const WishlistTable = ({ games, sortOrder }: Props) => {
-  const { width } = useWindowSize();
-  const deleteMutation = useDeleteGameFromWishlist();
-  const [removingGameId, setRemovingGameId] = useState<string | null>();
+  const { width } = useWindowSize(); // hook to retrieve browser window width
 
+  const deleteMutation = useDeleteGameFromWishlist(); // hook for deleting game from wishlist
+  const [removingGameId, setRemovingGameId] = useState<string | null>(); // ID of game being removed
+
+  // Remove game from wishlist and reset removingGameId to null
   const handleRemove = (gameId: string) => {
     setRemovingGameId(gameId);
     deleteMutation.mutate(gameId, {
@@ -38,6 +41,7 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
     });
   };
 
+  // Get the key for the category to sort the games
   const getSortKey = (sortOrder: string) => {
     switch (sortOrder) {
       case "name":
@@ -51,6 +55,8 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
     }
   };
 
+  // Sort games in ascending order if sorted by name,
+  // otherwise sort in descending order
   const sortedGames =
     sortOrder === "name"
       ? sort(games).asc(getSortKey(sortOrder))
@@ -60,6 +66,8 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
     <TableContainer>
       <Table variant="simple">
         <Tbody>
+          {/* Two columns per row, left containing game data,
+              right containing the remove from wishlist button */}
           {sortedGames.map((game) => (
             <Tr key={game.id}>
               <Td>
@@ -93,6 +101,7 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
                         alignItems="center"
                         gap={3}
                       >
+                        {/* Styling for left column based on browser size */}
                         {width > 490 ? (
                           <>
                             <Flex gap={3} alignItems="center">
@@ -140,6 +149,7 @@ const WishlistTable = ({ games, sortOrder }: Props) => {
                   </Box>
                 </Flex>
               </Td>
+              {/* Only render the right column if browser window is wider than 490 pixels */}
               {width > 490 && (
                 <Td>
                   <Button

@@ -12,6 +12,8 @@ import {
 import { BsChevronDown } from "react-icons/bs";
 import useGameQueryStore from "../store";
 
+
+// A dropdown menu for choosing the sort order of games.
 const SortSelector = () => {
   const sortOrder = useGameQueryStore((s) => s.gameQuery.sortOrder);
   const setSortOrder = useGameQueryStore((s) => s.setSortOrder);

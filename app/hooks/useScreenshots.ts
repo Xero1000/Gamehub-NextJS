@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Screenshot from "../entities/Screenshot";
 import APIClient from "../services/api-client";
 
+// Hook for fetching screenshots for a specific game using its id
 const useScreenshots = (gameId: number) => {
   const apiClient = new APIClient<Screenshot>(`/games/${gameId}/screenshots`);
 

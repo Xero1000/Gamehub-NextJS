@@ -4,6 +4,7 @@ import Game from "../entities/Game";
 
 const apiClient = new APIClient<Game>("/games");
 
+// Hook for fetching data for a single game based on slug
 const useGame = (slug: string) =>
   useQuery({
     queryKey: ["games", slug],

@@ -10,13 +10,21 @@ import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
+/**
+ * A grid displaying games fetched from the API.
+ * This component fetches and displays a grid of games. It utilizes infinite scroll
+ * to load more games as the user scrolls down. It also shows loading spinners
+ * while fetching data and skeleton placeholders for game cards while loading.
+ */
 const GameGrid = () => {
+  // Fetch games data from the RAWG API
   const { data, error, isLoading, fetchNextPage, hasNextPage } = useGames();
-  const skeletons = [1, 2, 3, 4, 5, 6];
+  const skeletons = [1, 2, 3, 4, 5, 6]; // Skeletons for loading state
 
   const { status } = useSession();
 
-  const { data: wishlistGamesIds, isLoading: wishlistLoading } =
+  // Fetch wishlist game IDs for the authenticated user
+  const { data: wishlistGamesIds } =
     useWishlistIds(status);
 
   if (error) return <Text>{error.message}</Text>;
@@ -33,11 +41,14 @@ const GameGrid = () => {
         next={() => fetchNextPage()}
         loader={<Spinner />}
       >
+        {/* Display grid of games */}
         <SimpleGrid
           columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
           spacing={6}
           padding="10px"
         >
+          {/* Display skeletons while loading */}
+          {/* Display GameCards when data is available */}
           {isLoading
             ? skeletons.map((skeleton) => (
                 <GameCardContainer key={skeleton}>

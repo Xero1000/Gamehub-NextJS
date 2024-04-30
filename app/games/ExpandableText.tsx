@@ -5,9 +5,10 @@ interface Props {
   children: string;
 }
 
+// Text to display content of child content and allow for expanding it
 const ExpandableText = ({ children }: Props) => {
-  const [expanded, setExpanded] = useState(false);
-  const limit = 300;
+  const [expanded, setExpanded] = useState(false); // Track whether text is expanded
+  const limit = 300; // Character limit for text before showing "Read More"
 
   if (!children) return null;
 

@@ -5,7 +5,9 @@ interface Props {
   gameId: number;
 }
 
+// A grid displaying screenshots of a game
 const GameScreenshots = ({ gameId }: Props) => {
+  // Fetch screenshots for the given game ID
   const { data: screenshots, isLoading, error } = useScreenshots(gameId);
 
   if (isLoading) return null;

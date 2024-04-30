@@ -6,6 +6,10 @@ import Game from "../entities/Game";
 
 const apiClient = new APIClient<Game>("/games");
 
+/**
+ * useGames hook fetches games from the RAWG API based on user queries,
+ * handles pagination and infinite scrolling.
+ */
 const useGames = () => {
   const gameQuery = useGameQueryStore((s) => s.gameQuery);
 
@@ -24,19 +28,8 @@ const useGames = () => {
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.next ? allPages.length + 1 : undefined;
     },
-    staleTime: ms("24h"), // 24
+    staleTime: ms("24h"), // Games data is cached for 24 hours.
   });
 };
 
 export default useGames;
-
-// const useGames = (gameQuery: GameQuery) =>
-//   useData<Game>("/games", {
-//     params: {
-//       genres: gameQuery.genre?.id,
-//       platforms: gameQuery.platform?.id,
-//       ordering: gameQuery.sortOrder,
-//       search: gameQuery.searchText
-//     }},
-//     [gameQuery]
-//   )
