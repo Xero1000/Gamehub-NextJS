@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { Game } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import WishlistTable from "./WishlistTable";
 import SortSelector from "./SortSelector";
+import SignInMessage from "../components/SignInMessage";
 
 // query string parameter for sorting wishlist table
 interface Props {
@@ -32,14 +33,9 @@ const WishlistPage = ({ searchParams: { sortOrder } }: Props) => {
 
   if (status === "loading") return <Text>Loading session...</Text>;
 
-  // If the user is not logged in
+  // If the user is not logged in, display a message and a login button
   if (!session) {
-    return (
-      <Box>
-        <Text>You are not signed in</Text>
-        <Link href="api/auth/signin">Sign in</Link>
-      </Box>
-    );
+    return <SignInMessage />;
   }
 
   // Display messages depending on loading and error status or if no games were found

@@ -16,8 +16,7 @@ const Emoji = ({ rating }: Props) => {
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <Image {...emojiMap[rating]} marginTop={1} />
+      <Image {...emojiMap[rating]} marginTop={1} alt={String(rating)}/>
     </>
   );
 };

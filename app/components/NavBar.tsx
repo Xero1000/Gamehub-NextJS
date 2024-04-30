@@ -55,8 +55,8 @@ const NavBar = () => {
       )}
       {/* Link to sign-in page */}
       {status === "unauthenticated" && (
-        <Link href="/api/auth/signin" passHref>
-          <Button as="a" colorScheme="green">
+        <Link href="/api/auth/signin">
+          <Button colorScheme="green">
             Login
           </Button>
         </Link>
